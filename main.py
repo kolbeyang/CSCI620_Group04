@@ -16,4 +16,4 @@ with connection:
     with connection.cursor() as cursor:
         by_year.songs_released_over_time(cursor)
         by_year.track_duration_over_time(cursor)
-        # genres.genres_per_artist(cursor)
+        genres.genres_per_artist(cursor)
