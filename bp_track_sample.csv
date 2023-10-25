@@ -1,0 +1,6 @@
+track_id,title,mix,is_remixed,release_date,genre_id,subgenre_id,track_url,bpm,duration,duration_ms,isrc,key_id,label_id,release_id,updated_on,is_matched_spot
+4971,Beatfreaker,Acapella,0,2003-07-29,5,NULL,beatport.com/track/beatfreaker/4971,126,00:02:03,123915,NULL,33,243,3965,"2023-09-16 09:34:38",NULL
+4972,Beatfreaker,"Original Mix",0,2003-07-29,5,NULL,beatport.com/track/beatfreaker/4972,126,00:05:37,337253,NULL,21,243,3965,"2023-09-16 09:34:38",NULL
+4973,"Drop It","Original Mix",0,2003-07-29,5,NULL,beatport.com/track/drop-it/4973,132,00:05:34,334666,NULL,2,243,3965,"2023-09-16 09:34:38",NULL
+4974,Tranzmission,"Original Mix",0,2006-05-09,5,NULL,beatport.com/track/tranzmission/4974,120,00:00:24,24693,NULL,19,660,10568,"2023-09-16 09:28:10",NULL
+4975,Starz,"Original Mix",0,2006-05-09,5,NULL,beatport.com/track/starz/4975,88,00:01:02,62773,CAW430500049,5,660,10568,"2023-09-16 09:28:10",1
