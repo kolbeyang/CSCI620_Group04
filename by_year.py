@@ -13,12 +13,9 @@ import numpy as np
 import pymysql.cursors
 
 def songs_released_over_time(cursor):
-    sql = "SELECT * FROM bp_track LIMIT 1"
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    print(result)
-
-    sql = "SELECT SUBSTRING(release_date, 1, 4) AS year, COUNT(*) AS count FROM bp_track GROUP BY SUBSTRING(release_date, 1, 4)"
+    sql = """SELECT YEAR(bp_release.release_date) AS year, COUNT(*) AS count 
+        FROM bp_track INNER JOIN bp_release ON bp_track.release_id=bp_release.release_id
+        GROUP BY YEAR(bp_release.release_date)"""
     cursor.execute(sql)
     result = cursor.fetchall()
 
@@ -41,7 +38,9 @@ def songs_released_over_time(cursor):
 
 def track_duration_over_time(cursor):
 
-    sql = "SELECT SUBSTRING(release_date, 1, 4) AS year, AVG(duration_ms) AS avg_duration FROM bp_track GROUP BY SUBSTRING(release_date, 1, 4);"
+    sql = """SELECT YEAR(bp_release.release_date) AS year, AVG(bp_track.duration_ms) AS avg_duration 
+        FROM bp_track INNER JOIN bp_release ON bp_track.release_id=bp_release.release_id
+        GROUP BY YEAR(bp_release.release_date)"""
     cursor.execute(sql)
     result = cursor.fetchall()
 
@@ -51,8 +50,6 @@ def track_duration_over_time(cursor):
     for pair in result:
         years.append(int(pair['year']))
         avg_duration_seconds.append(int(pair['avg_duration']) / 1000)
-
-    print(avg_duration_seconds)
 
     fig = plt.figure(figsize = (10, 5))
     
