@@ -1,5 +1,15 @@
+"""
+File used to perform analysis based on genres
+
+genres_per_artist : creates a histogram showing how many genres
+    artist tend to create music under
+genres_audio_features : finds the average audio features
+    for the top five genres in the database
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
+import pymysql.cursors
 
 def genres_per_artist(cursor):
     sql = """
@@ -69,3 +79,15 @@ def genres_audio_features(cursor):
     plt.title("Acoustic Features by Genre") 
     plt.legend() 
     plt.show() 
+
+# Connect to the database
+connection = pymysql.connect(host='34.130.173.160',
+                             user='root',
+                             password='groupproject',
+                             database='music_schema',
+                             cursorclass=pymysql.cursors.DictCursor)
+
+with connection:
+    with connection.cursor() as cursor:
+        genres_per_artist(cursor)
+        genres_audio_features(cursor)

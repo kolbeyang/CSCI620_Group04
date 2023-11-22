@@ -9,9 +9,10 @@
 ## Installation
 - download the project code
 - install the dependencies
-- run main.py
-- input username as 'root'
-- input password as 'groupproject'
+- Run any of the files
+    - genres.py
+    - title_ocur.py
+    - by_year.py
 - visualizations will appear
 
 ## What's been done
