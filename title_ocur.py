@@ -40,12 +40,10 @@ try:
 finally:
     connection.close()
 
-
-
 word_count = {}
 song_count = Counter()
-common_word_count = Counter()
-total_word_counts = Counter()
+common_word = Counter()
+total_word = Counter()
 
 # Top 15 words appear in genres
 for title, genre_name in results:
@@ -57,8 +55,6 @@ for title, genre_name in results:
     if genre_name not in word_count:
         word_count[genre_name] = Counter()
     word_count[genre_name].update(words)
-
-
 
 # edit with your path to store
 charts_dir = "C:\\Users\\ICE Terminal Tech\\Desktop\\homework\\big_data\\CSCI620_Group04\\title_ocur"
@@ -83,37 +79,32 @@ for genre, counter in word_count.items():
     for i in range(len(counts)):
         plt.text(i, counts[i] + 0.05 * max(counts), counts[i], ha = 'center')
     
-    chart_path = os.path.join(charts_dir, f"{genre.replace('/', '_')}_chart.png")
+    path = os.path.join(charts_dir, f"{genre.replace('/', '_')}_chart.png")
     plt.tight_layout()
-    plt.savefig(chart_path)
+    plt.savefig(path)
     plt.close()  
-
 
 # Top 20 words that appear in all genres
 for genre, words in word_count.items():
     for word, count in words.items():
-        common_word_count[word] += 1
-        total_word_counts[word] += count
+        common_word[word] += 1
+        total_word[word] += count
 
-        
 number_of_genres = 32
-words_in_all_genres = [word for word, count in common_word_count.items() if count == number_of_genres]
-top_20_words = sorted(words_in_all_genres, key=lambda word: total_word_counts[word], reverse=True)[:20]
-
+words_in_all_genres = [word for word, count in common_word.items() if count == number_of_genres]
+top_20_words = sorted(words_in_all_genres, key=lambda word: total_word[word], reverse=True)[:20]
 
 words = [word for word in top_20_words]
-counts = [total_word_counts[word] for word in top_20_words]
+counts = [total_word[word] for word in top_20_words]
 
 # plot pie chart to store
 plt.figure(figsize=(10, 8))
 plt.pie(counts, labels=words, autopct='%1.1f%%', startangle=140)
 plt.axis('equal') 
 plt.title('Top 20 Words in All 32 Genres')
-chart_path = os.path.join(charts_dir_pie, f"top20_chart.png")
-plt.savefig(chart_path)
+path = os.path.join(charts_dir_pie, f"top20_chart.png")
+plt.savefig(path)
 plt.close()  
-
-
 
 # for test 
 # print("Top 20 words that appear in all genres:")
