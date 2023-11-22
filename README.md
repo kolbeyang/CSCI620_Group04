@@ -21,11 +21,7 @@
 - Simple data analysis has been done in Python
 - Simple visualizations have been created in Python
 
-## What will be done
-The following questions will be explored
-### How have different genres changed in popularity throughout time?
-For each genre (ommitting insignificant ones) track the percentage of total tracks in that genre. 
-
 ## List of deliverables
 - Python files of a program which explores each of the above questions
+- Image files of visualizations from previous runs of the program
 - Visualizations produced as a product of this exploration
