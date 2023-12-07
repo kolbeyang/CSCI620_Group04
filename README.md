@@ -9,6 +9,9 @@
 ## Installation
 - download the project code
 - install the dependencies
+```sh
+  pip install -r requirements.txt
+  ```
 - Run any of the files
     - genres.py
     - title_ocur.py
