@@ -47,15 +47,12 @@ def genres_audio_features(cursor):
         INNER JOIN bp_genre ON bp_track.genre_id=bp_genre.genre_id
         INNER JOIN audio_features ON bp_track.isrc=audio_features.isrc 
         GROUP BY bp_track.genre_id
-        ORDER BY COUNT(bp_track.track_id) DESC
+        ORDER BY COUNT(bp_track.track_id) ASC
         LIMIT 5
     """
 
     cursor.execute(sql)
     result = cursor.fetchall()
-
-    for entry in result:
-        print(entry)
 
     genres = [entry['genre'] for entry in result]
     accousticness_values = [entry['avg_acousticness'] for entry in result]
@@ -89,5 +86,5 @@ connection = pymysql.connect(host='34.130.173.160',
 
 with connection:
     with connection.cursor() as cursor:
-        genres_per_artist(cursor)
+        # genres_per_artist(cursor)
         genres_audio_features(cursor)
