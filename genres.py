@@ -86,5 +86,5 @@ connection = pymysql.connect(host='34.130.173.160',
 
 with connection:
     with connection.cursor() as cursor:
-        # genres_per_artist(cursor)
+        genres_per_artist(cursor)
         genres_audio_features(cursor)

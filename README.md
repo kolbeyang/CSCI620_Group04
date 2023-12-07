@@ -13,6 +13,7 @@
     - genres.py
     - title_ocur.py
     - by_year.py
+    - genre_percentage.py
 - visualizations will appear
 
 ## What's been done
