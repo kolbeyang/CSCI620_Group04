@@ -2,7 +2,7 @@
 File used to perform analysis based on genres
 
 genres_per_artist : creates a histogram showing how many genres
-    artist tend to create music under
+    artists tend to create music under
 genres_audio_features : finds the average audio features
     for the top five genres in the database
 """
@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pymysql.cursors
 
+
+"""
+Creates a histogram showing how many genres artists tend to create music under
+"""
 def genres_per_artist(cursor):
     sql = """
         SELECT bp_artist_track.artist_id AS artist_id, COUNT(DISTINCT bp_track.genre_id) AS genre_count, COUNT(bp_track.track_id) AS track_count
@@ -20,21 +24,24 @@ def genres_per_artist(cursor):
     cursor.execute(sql)
     result = cursor.fetchall()
 
+    # List of integers representing the number of genres each artist has created tracks for
     genres_per_artist = [pair['genre_count'] for pair in result]
 
     fig = plt.figure(figsize = (10, 5))
     
+    # Creating the Histogram
     plt.hist(genres_per_artist, 24)
     
+    # Adding labels
     plt.xlabel("Genres per artist")
     plt.ylabel("Number of artists")
     plt.title("Genres per artist")
     plt.show()
 
+"""
+Finds the average audio features for the top five genres in the database
+"""
 def genres_audio_features(cursor):
-    # sql = """
-    #     SELECT bp_genre.genre_name FROM bp_track JOIN bp_genre ON bp_track.genre_id=bp_genre.genre_id GROUP BY bp_genre.genre_id ORDER BY COUNT(*) DESC LIMIT 15
-    # """
     sql = """
         SELECT 
             bp_genre.genre_name AS genre,
@@ -54,6 +61,7 @@ def genres_audio_features(cursor):
     cursor.execute(sql)
     result = cursor.fetchall()
 
+    # Separating each column into separate lists
     genres = [entry['genre'] for entry in result]
     accousticness_values = [entry['avg_acousticness'] for entry in result]
     danceability_values = [entry['avg_danceability'] for entry in result]
@@ -64,12 +72,15 @@ def genres_audio_features(cursor):
     
     X_axis = np.arange(len(genres)) 
     
+    # Create a bar graph per audio feature such that they overlap
+    # and appear to be grouped by genre
     plt.bar(X_axis - 0.3, accousticness_values, 0.1, label = 'Acousticness') 
     plt.bar(X_axis - 0.2, danceability_values, 0.1, label = 'Danceability') 
     plt.bar(X_axis - 0.1, energy_values, 0.1, label = 'Energy') 
     plt.bar(X_axis + 0, instrumentalness_values, 0.1, label = 'Instrumentalness') 
     plt.bar(X_axis + 0.1, liveness_values, 0.1, label = 'Liveness') 
     
+    # Adding labels
     plt.xticks(X_axis, genres) 
     plt.xlabel("Groups") 
     plt.ylabel("Quantifier (0 - 1)") 
@@ -84,6 +95,7 @@ connection = pymysql.connect(host='34.130.173.160',
                              database='music_schema',
                              cursorclass=pymysql.cursors.DictCursor)
 
+# Call the above functions with DB connection
 with connection:
     with connection.cursor() as cursor:
         genres_per_artist(cursor)
